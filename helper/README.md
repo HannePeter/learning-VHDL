@@ -10,7 +10,7 @@ In Arch-Linux und Manjaro können diese Pakete aus den offiziellen Repos bezogen
 
 ## Benutzung
 Die zu entwickelnden Module müssen nach folgendem Namensschema benannt werden, damit die Skripte ordnungsgemäß funktionieren:
-* Modul: modulname.vdh
+* Modul: modulname.vhd
 * Testbench: modulname\_tb.vhd
 
 **verify.sh** überprüft die Syntax und analysiert sämtliche Dateien mit der Endung *.vhd*. **run_simulation.sh** analysiert sämtliche *.vhd*-Dateien, statet die Elaboration und die Simulation der Testbench und zeigt das Ergebnis grafisch via **gtkwave**.
