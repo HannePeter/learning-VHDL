@@ -3,8 +3,10 @@ use ieee.std_logic_1164.all;
 use ieee.std_logic_textio.all;
 use std.textio.all;
 
+
 entity sseg_lut_tb is                           -- leere entity
 end;
+
 
 architecture simulation of sseg_lut_tb is
 

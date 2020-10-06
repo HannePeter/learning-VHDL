@@ -57,4 +57,3 @@ set_location_assignment PIN_D15 -to HEX0[7]
 # -------------------------------------------------------------------------- #
 set_location_assignment PIN_P11 -to CLK1
 set_location_assignment PIN_N14 -to CLK2
-set_location_assignment PIN_B11 -to LED9 --LED zu Anzeige

@@ -2,16 +2,14 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 
-
 entity traffic_light is
     port(   n_x0, n_x1 : in std_logic;
             green0, yellow0, red0, green1, yellow1, red1 : out std_logic;
             clk, reset : in std_logic);
 end;
 
-
             
-architecture synth of traffic_light is
+architecture fsm of traffic_light is
 
     type state_t is (S0, S1, S2, S3);
     signal state, nextstate : state_t;

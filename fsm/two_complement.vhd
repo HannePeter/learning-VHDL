@@ -2,18 +2,16 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 
-
 entity two_complement is
     port(   x, start : in  std_logic;
             y        : out std_logic;
             clk, reset : in std_logic);
 end;
 
-
             
 architecture fsm of two_complement is
 
-    type state_t is (S0, S1, s2);
+    type state_t is (S0, S1, S2);
     signal state, nextstate : state_t;
 
 begin
