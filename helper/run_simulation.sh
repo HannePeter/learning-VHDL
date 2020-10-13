@@ -12,7 +12,7 @@ echo "elaborate $tb ... "
 ghdl -e --std=08 $tb
 
 echo "run simulation $tb"
-ghdl -r $tb --vcd=simulation.vcd
+ghdl -r $tb --vcd=simulation.vcd --stop-time=200ns
 
 echo ""
 gtkwave simulation.vcd
