@@ -2,14 +2,14 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 
-
 entity gray_counter is
-    port(   y : out std_logic_vector(2 downto 0);
-            clk, reset : in std_logic);
+    port (
+        clk, reset : in  std_logic;
+        y          : out std_logic_vector(2 downto 0)
+    );
 end;
 
 
-       
 architecture fsm of gray_counter is
 
     signal state     : std_logic_vector(2 downto 0);
@@ -19,18 +19,15 @@ begin
 
     process(clk, reset)
     begin
-    
         if (reset = '0') then
-            state <= S0;
+            state <= "000";
         elsif rising_edge(clk) then
             state <= nextstate;
         end if;
-        
     end process;
-    
+
     process(state)
     begin
-    
         case (state) is
             when "000" =>  nextstate <= "001";
             when "001" =>  nextstate <= "011";
@@ -42,9 +39,8 @@ begin
             when "100" =>  nextstate <= "000";
             when others => nextstate <= "000";
         end case;
-    
     end process;
-    
+
     y <= state;
-                        
+
 end;

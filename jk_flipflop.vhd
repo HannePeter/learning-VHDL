@@ -1,32 +1,35 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
+
 entity jk_flipflop is
-    port(   clk  : in  std_logic;
-            j, k : in  std_logic;
-            q    : inout std_logic);
+    port (
+        clk  : in  std_logic;
+        j, k : in  std_logic;
+        q    : out std_logic
+    );
 end;
 
-architecture synth of jk_flipflop is
 
-    signal jk : bit_vector(1 downto 0);
-    
+architecture behave of jk_flipflop is
+
+    signal r_out    : std_logic;
+
 begin
-
-    jk <= j & k;
 
     process(clk)
     begin
-    
         if rising_edge(clk) then
-            case jk is
-                when "10"   => q <= '1';
-                when "01"   => q <= '0';
-                when "11"   => q <= not q;
-                when others =>
-            end case;
+            if (j = '1' and k = '0') then
+                r_out <= '1';
+            elsif (j = '0' and k = '1') then
+                r_out <= '0';
+            elsif (j = '1' and k = '1') then
+                r_out <= not r_out;
+            end if;
         end if;
-        
     end process;
-    
+
+    q <= r_out;
+
 end;

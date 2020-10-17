@@ -1,13 +1,15 @@
--- from exercise 2.37
-
 library ieee;
 use ieee.std_logic_1164.all;
 
+
 entity priority_encoder2 is
-    port(   x    : in  std_logic_vector(7 downto 0);
-            y, z : out std_logic_vector(2 downto 0);
-            none : out std_logic);
+    port (
+        x    : in  std_logic_vector(7 downto 0);
+        y, z : out std_logic_vector(2 downto 0);
+        none : out std_logic
+    );
 end;
+
 
 architecture synth of priority_encoder2 is
 begin
@@ -26,7 +28,7 @@ begin
             when "1-------" => y <= "111"; none <= '0';
             when others     => y <= "000"; none <= '0';
         end case?;
-        
+
         case? x is
             when "00000011" => z <= "000";
             when "00000101" => z <= "000";
@@ -56,8 +58,8 @@ begin
             when "011-----" => z <= "101";
             when "101-----" => z <= "101";
             when "11------" => z <= "110";
-            when others     => z <= "000";            
+            when others     => z <= "000";
         end case?;
     end process;
-    
+
 end;
