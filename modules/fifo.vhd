@@ -6,10 +6,11 @@ use ieee.numeric_std.all;
 entity fifo is
     generic (
         word_width  : integer := 8;
-        addr_width  : integer := 8   -- fifo length = 2^addr_width
+        addr_width  : integer := 2   -- fifo length = 2^addr_width
     );
     port (
         clk         : in  std_logic;
+        reset_n     : in  std_logic;
         in_data     : in  std_logic_vector(word_width-1 downto 0);
         wr          : in  std_logic;
         rd          : in  std_logic;
@@ -22,8 +23,6 @@ end;
 
 architecture behave of fifo is
 
---    type mem is array(0 to (2**addr_width)-1) of unsigned(word_width-1 downto 0);
---    signal r_memory : mem;
     type mem is array(0 to (2**addr_width)-1) of std_logic_vector(word_width-1 downto 0);
     signal r_memory : mem := (others => (others => '0'));
 
@@ -36,18 +35,22 @@ begin
 
     process(clk)
     begin
---        wait until rising_edge(clk);
         if rising_edge(clk) then
-            if (wr = '1' and r_full = '0') then
---                r_memory(to_integer(r_wrptr)) <= unsigned(in_data);
-                r_memory(to_integer(r_wrptr)) <= in_data;
-                r_wrptr <= r_wrptr + 1;
-            end if;
+            if (reset_n = '0') then
+                r_wrptr <= (others => '0');
+                r_rdptr <= (others => '0');
+            else
 
-            if (rd  = '1' and r_empty = '0') then
---                out_data <= std_logic_vector(r_memory(to_integer(r_rdptr)));
-                out_data <= r_memory(to_integer(r_rdptr));
-                r_rdptr <= r_rdptr + 1;
+                if (wr = '1' and r_full = '0') then
+                    r_memory(to_integer(r_wrptr)) <= in_data;
+                    r_wrptr <= r_wrptr + 1;
+                end if;
+
+                if (rd  = '1' and r_empty = '0') then
+                    out_data <= r_memory(to_integer(r_rdptr));
+                    r_rdptr <= r_rdptr + 1;
+                end if;
+
             end if;
         end if;
 
