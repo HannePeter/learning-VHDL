@@ -18,25 +18,28 @@ end;
 
 architecture behave of reg is
 
-    signal r_out    : std_logic_vector(n-1 downto 0);
     signal r_temp   : std_logic_vector(n-1 downto 0);
 
 begin
 
-    process(clk, reset_n)
+    process(clk, reset_n)                   -- first (input) FF, loaded with pos clk edge
     begin
         if (reset_n = '0') then
-            r_out <= (others => '0');
             r_temp <= (others => '0');
         elsif rising_edge(clk) then
             if (enable = '1') then
                 r_temp <= in_data;
             end if;
-        elsif falling_edge(clk) then
-            r_out <= r_temp;
         end if;
     end process;
 
-    out_data <= r_out;
+    process(clk, reset_n)                   -- second (output) FF, loaded with neg clk edge
+    begin
+        if (reset_n = '0') then
+            out_data <= (others => '0');
+        elsif falling_edge(clk) then
+            out_data <= r_temp;
+        end if;
+    end process;
 
 end;
