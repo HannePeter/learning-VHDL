@@ -22,7 +22,7 @@ architecture behave of adder is
 
 begin
 
-    r_result    <= unsigned("0" & a) + unsigned("0" & b) + in_c;
+    r_result    <= unsigned("0" & a) + unsigned("0" & b) + ("" & in_c); -- conv. to vector
     sum         <= std_logic_vector(r_result(n-1 downto 0));
     out_c       <= r_result(n);
 

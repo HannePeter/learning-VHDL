@@ -14,8 +14,5 @@ ghdl -e --std=08 $tb
 echo "run simulation $tb"
 ghdl -r $tb --vcd=simulation.vcd --stop-time=200ns
 
-echo ""
-gtkwave simulation.vcd
-
-rm -f *.o *.cf simulation.vcd
+rm -f *.o *.cf
 rm -f $tb
